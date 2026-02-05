@@ -27,8 +27,14 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
-app.config['ENV'] = 'production'
-app.config['DEBUG'] = False
+if FLASK_ENV == 'production':
+    app.config['ENV'] = 'production'
+    app.config['DEBUG'] = False
+    logging.getLogger().setLevel(logging.INFO)
+else:
+    app.config['ENV'] = 'development'
+    app.config['DEBUG'] = True
+    logging.getLogger().setLevel(logging.DEBUG)
 
 # Configuration
 UPLOAD_FOLDER = 'uploads'

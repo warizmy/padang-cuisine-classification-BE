@@ -24,6 +24,8 @@ logger = logging.getLogger(__name__)
 
 load_dotenv()
 
+FLASK_ENV = os.getenv('FLASK_ENV', 'development')
+
 app = Flask(__name__)
 CORS(app)
 
@@ -262,3 +264,6 @@ def internal_error(error):
     return jsonify({
         'error': 'Internal server error'
     }), 500
+    
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
